@@ -1,8 +1,10 @@
 package com.sumitaccess007.Service;
 
 import com.sumitaccess007.Dao.StudentDao;
+import com.sumitaccess007.Dao.StudentDaoInterface;
 import com.sumitaccess007.Entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -11,25 +13,24 @@ import java.util.Collection;
 public class StudentService {
 
     @Autowired
-    private StudentDao studentDao;
+    @Qualifier("fakedata")
+    private StudentDaoInterface studentDaoInterface;
 
     public Collection<Student> getAllStudents() {
-        return this.studentDao.getAllStudents();
+        return this.studentDaoInterface.getAllStudents();
     }
 
-    public Student getStudentById(int id){
-        return this.studentDao.getStudentById(id);
-    }
+    public Student getStudentById(int id) { return this.studentDaoInterface.getStudentById(id); }
 
     public void removeStudentById(int id) {
-        this.studentDao.removeStudentById(id);
+        this.studentDaoInterface.removeStudentById(id);
     }
 
     public void updateStudent(Student student){
-        this.studentDao.updateStudent(student);
+        this.studentDaoInterface.updateStudent(student);
     }
 
     public void insertStudent(Student student) {
-        this.studentDao.insertStudentToDb(student);
+        this.studentDaoInterface.insertStudentToDb(student);
     }
 }

@@ -1,6 +1,7 @@
 package com.sumitaccess007.Dao;
 
 import com.sumitaccess007.Entity.Student;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -8,7 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class StudentDao {
+@Qualifier("fakedata")
+public class StudentDao implements StudentDaoInterface {
     private static Map<Integer, Student> students;
 
     static {
@@ -25,21 +27,25 @@ public class StudentDao {
     }
 
 
+    @Override
     public Collection<Student> getAllStudents() {
         return this.students.values();
     }
 
 
+    @Override
     public Student getStudentById(int id){
         return this.students.get(id);
     }
 
 
+    @Override
     public void removeStudentById(int id) {
         this.students.remove(id);
     }
 
 
+    @Override
     public void updateStudent(Student student){
         Student s = students.get(student.getId());
         s.setCourse(student.getCourse());
@@ -48,6 +54,7 @@ public class StudentDao {
     }
 
 
+    @Override
     public void insertStudentToDb(Student student) {
         this.students.put(student.getId(), student);
     }
